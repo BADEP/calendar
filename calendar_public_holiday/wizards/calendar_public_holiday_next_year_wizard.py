@@ -73,11 +73,10 @@ class CalendarPublicHolidayNextYear(models.TransientModel):
                 new_ph_line_vals = {"date": new_date, "public_holiday_id": new_ph.id}
                 last_ph_line.copy(new_ph_line_vals)
         domain = [["id", "in", new_ph_ids]]
-        action = {
+        return {
             "type": "ir.actions.act_window",
             "name": self.env._("New public holidays"),
             "view_mode": "list,form",
             "res_model": ph_env._name,
             "domain": domain,
         }
-        return action
