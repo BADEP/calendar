@@ -3,10 +3,10 @@
 
 // Too many available slots? Allow scrolling
 .slots-dropdown {
-    max-height: 40vh;
-    overflow: auto;
+  max-height: 40vh;
+  overflow: auto;
 }
 // Show full dropdown if opened at the bottom
 .resource_booking_portal_schedule {
-    overflow: initial;
+  overflow: initial;
 }
