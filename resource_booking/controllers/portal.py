@@ -22,18 +22,13 @@ class CustomerPortal(portal.CustomerPortal):
             using_portal=True, tz=booking_sudo.type_id.resource_calendar_id.tz
         )
 
-    def _prepare_home_portal_values(self, counters):
-        """Compute values for multi-booking portal views."""
-        values = super()._prepare_home_portal_values(counters)
-        Booking = request.env["resource.booking"]
-        if "booking_count" in counters:
-            # Portal users without read access on resource.booking would have
-            # raised an AccessError here, breaking the whole /my landing page.
-            booking_count = (
-                Booking.search_count([]) if Booking.has_access("read") else 0
-            )
-            values.update({"booking_count": booking_count})
-        return values
+    def _prepare_portal_counter_values(self, counter):
+        """Count bookings for the portal home card."""
+        if counter == "booking_count":
+            # Core only counts if the user has read access on resource.booking
+            # (0 otherwise), so the /my landing page never breaks.
+            return "resource.booking", [], "read"
+        return super()._prepare_portal_counter_values(counter)
 
     def _booking_get_page_view_values(self, booking_sudo, access_token, **kwargs):
         """Compute values for single-booking portal views."""

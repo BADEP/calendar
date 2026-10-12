@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+    <record id="portal_entry_bookings" model="portal.entry">
+        <field name="name">Bookings</field>
+        <field name="url">/my/bookings</field>
+        <field
+            name="image"
+            type="bytes"
+            file="resource_booking/static/src/img/portal_icon.svg"
+        />
+        <field name="placeholder_count">booking_count</field>
+        <field name="category">common_category</field>
+    </record>
+</odoo>

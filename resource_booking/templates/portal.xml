@@ -256,30 +256,9 @@
             </t>
         </xpath>
     </template>
-    <template
-        id="portal_my_home"
-        inherit_id="portal.portal_my_home"
-        customize_show="True"
-        priority="30"
-    >
-        <div id="portal_common_category" position="inside">
-            <t t-call="portal.portal_docs_entry">
-                <t
-                    t-set="icon"
-                    t-value="'/resource_booking/static/src/img/portal_icon.svg'"
-                />
-                <t t-set="title">Bookings</t>
-                <t t-set="url" t-value="'/my/bookings'" />
-                <t t-set="placeholder_count" t-value="'booking_count'" />
-            </t>
-        </div>
-    </template>
     <template id="portal_my_bookings" name="My Bookings">
-        <t t-call="portal.portal_layout">
-            <t t-set="breadcrumbs_searchbar" t-value="True" />
-            <t t-call="portal.portal_searchbar">
-                <t t-set="title">Bookings</t>
-            </t>
+        <t t-call="portal.portal_layout" breadcrumbs_searchbar="True">
+            <t t-call="portal.portal_searchbar" title.translate="Bookings"/>
             <t t-if="not bookings">
                 <p
                     class="alert alert-warning"
@@ -346,15 +325,11 @@
         </div>
     </template>
     <template id="resource_booking_portal_form" name="Booking portal form">
-        <t t-call="portal.portal_layout">
-            <t t-set="o_portal_fullwidth_alert" groups="resource_booking.group_user">
-                <t t-call="portal.portal_back_in_edit_mode">
-                    <t
-                        t-set="backend_url"
-                        t-value="'/web#return_label=Website&amp;model=resource.booking&amp;id=%d&amp;view_type=form' % (booking_sudo.id)"
-                    />
-                </t>
-            </t>
+        <t t-set="o_portal_fullwidth_alert" groups="resource_booking.group_user">
+            <t t-call="portal.portal_back_in_edit_mode"
+                backend_url="'/web#return_label=Website&amp;model=resource.booking&amp;id=%d&amp;view_type=form' % (booking_sudo.id)"/>
+        </t>
+        <t t-call="portal.portal_layout" o_portal_fullwidth_alert="o_portal_fullwidth_alert">
             <!-- Form -->
             <div id="booking_content" class="o_portal_content col-12">
                 <div id="card">
@@ -535,12 +510,11 @@
             <hr />
             <div id="booking_chat" class="mt32" data-anchor="true">
                 <h3>Message and communication history</h3>
-                <t t-call="portal.message_thread">
-                    <t t-set="object" t-value="booking_sudo" />
-                    <t t-set="token" t-value="booking_sudo.access_token" />
-                    <t t-set="pid" t-value="pid" />
-                    <t t-set="hash" t-value="hash" />
-                </t>
+                <t t-call="portal.message_thread"
+                    object="booking_sudo"
+                    token="booking_sudo.access_token"
+                    pid="pid"
+                    hash="hash"/>
             </div>
         </t>
     </template>
@@ -570,15 +544,11 @@
         </div>
     </template>
     <template id="resource_booking_portal_schedule" name="Resource Booking Scheduling">
-        <t t-call="portal.portal_layout">
-            <t t-set="o_portal_fullwidth_alert" groups="resource_booking.group_user">
-                <t t-call="portal.portal_back_in_edit_mode">
-                    <t
-                        t-set="backend_url"
-                        t-value="'/web#return_label=Website&amp;model=resource.booking&amp;id=%d&amp;view_type=form' % (booking_sudo.id)"
-                    />
-                </t>
-            </t>
+        <t t-set="o_portal_fullwidth_alert" groups="resource_booking.group_user">
+            <t t-call="portal.portal_back_in_edit_mode"
+                backend_url="'/web#return_label=Website&amp;model=resource.booking&amp;id=%d&amp;view_type=form' % (booking_sudo.id)"/>
+        </t>
+        <t t-call="portal.portal_layout" o_portal_fullwidth_alert="o_portal_fullwidth_alert">
             <!-- Error alert -->
             <t t-if="error">
                 <t t-call="resource_booking.alert_availability_lost" />
@@ -592,9 +562,7 @@
                     <div id="card_body" class="row">
                         <div class="row">
                             <div class="col">
-                                <t t-call="resource_booking.scheduling_calendar">
-                                    <t t-set="booking" t-value="booking_sudo" />
-                                </t>
+                                <t t-call="resource_booking.scheduling_calendar" booking="booking_sudo"/>
                             </div>
                         </div>
                     </div>
